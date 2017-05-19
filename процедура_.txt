@@ -1,0 +1,18 @@
+Процедура для возврата назад по дереву.Процедура для InterBase.
+
+CREATE PROCEDURE parents (ID INTEGER)
+RETURNS (DID INTEGER, OID INTEGER, NAME VARCHAR(30))
+AS
+BEGIN
+  WHILE (:ID > 0) DO
+    BEGIN
+      SELECT O.ID, O.PRNT, O.SOMETHING
+      FROM CATALOG O
+      WHERE O.ID = :ID
+      INTO :DID, :OID, :NAME;
+      ID = :OID; 
+      SUSPEND;
+    END
+END
+
+
